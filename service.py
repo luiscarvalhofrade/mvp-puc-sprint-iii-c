@@ -1,6 +1,5 @@
 from flask_openapi3 import OpenAPI, Info, Tag
 from flask import redirect
-from urllib.parse import unquote
 import requests
 
 from sqlalchemy.exc import IntegrityError
@@ -31,7 +30,7 @@ def home():
 def add_order(form: OrderSchema):
     """Add new oredr in the db
 
-    Retorna uma representação dos pedidos e produto associado.
+    Return the order with all key values.
     """
     url = 'https://fakestoreapi.com/products/{product_id}'.format(product_id = form.product_id)
     fakeStoreApi = requests.get(url)
@@ -73,9 +72,9 @@ def add_order(form: OrderSchema):
 @app.get('/orders', tags=[order_tag],
          responses={"200": OrderListSchema, "404": ErrorSchema})
 def get_orders():
-    """Faz a busca por todos os Pedidos cadastrados
+    """Return all orders in the db
 
-    Retorna uma representação da listagem de pedidos.
+    Return a list of order.
     """
     logger.debug(f"Coletando pedidos ")
     # criando conexão com a base
@@ -96,9 +95,9 @@ def get_orders():
 @app.get('/order', tags=[order_tag],
          responses={"200": OrderViewSchema, "404": ErrorSchema})
 def get_order(query: OrderSearchSchema):
-    """Faz a busca por um Pedido a partir do id do pedido
+    """Return an specific order by a given id
 
-    Retorna uma representação dos pedidos e produtos associados.
+    Return a specific order.
     """
     order_id = query.id
     logger.debug(f"Collecting data about order #{order_id}")
@@ -121,9 +120,9 @@ def get_order(query: OrderSearchSchema):
 @app.delete('/order', tags=[order_tag],
             responses={"200": OrderDelSchema, "404": ErrorSchema})
 def del_produto(query: OrderSearchSchema):
-    """Deleta um Pedido a partir do id do pedido informado
+    """Delete an order by a given id
 
-    Retorna uma mensagem de confirmação da remoção.
+    Return a message of success and the deleted order id.
     """
     order_id = query.id
     print(order_id)
@@ -147,9 +146,9 @@ def del_produto(query: OrderSearchSchema):
 @app.put('/order', tags=[order_tag],
           responses={"200": OrderViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def update_order(form: OrderUpdateSchema):
-    """Update order in the db
+    """Update one order in the db
 
-    Retorna uma representação dos pedidos e produto associado.
+    Return the updated order.
     """
     order_id = form.id
     try:
