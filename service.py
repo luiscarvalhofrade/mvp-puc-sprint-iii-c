@@ -119,12 +119,12 @@ def get_order(query: OrderSearchSchema):
 
 @app.delete('/order', tags=[order_tag],
             responses={"200": OrderDelSchema, "404": ErrorSchema})
-def del_produto(query: OrderSearchSchema):
+def del_produto(form: OrderSearchSchema):
     """Delete an order by a given id
 
     Return a message of success and the deleted order id.
     """
-    order_id = query.id
+    order_id = form.id
     print(order_id)
     logger.debug(f"Deleting data from order #{order_id}")
     # criando conexão com a base
