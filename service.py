@@ -14,7 +14,7 @@ app = OpenAPI(__name__, info=info)
 CORS(app)
 
 # definindo tags
-home_tag = Tag(name="Doc", description="Doc selectin: Swagger, Redoc ou RapiDoc")
+home_tag = Tag(name="Doc", description="Doc selection: Swagger, Redoc ou RapiDoc")
 order_tag = Tag(name="Order", description="Addition, view and exclusion of orders")
 
 
