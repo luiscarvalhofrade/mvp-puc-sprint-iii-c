@@ -4,5 +4,5 @@ WORKDIR /mvp-puc-sprint-iii-c
 COPY . /mvp-puc-sprint-iii-c
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
-EXPOSE 5002
-CMD ["flask", "--app" , "service", "run", "--host=0.0.0.0", "--port=5001"]
+EXPOSE 5010
+CMD ["flask", "--app" , "service", "run", "--host=0.0.0.0", "--port=5011"]

@@ -144,7 +144,7 @@ def del_produto(form: OrderSearchSchema):
         return {"mesage": error_msg}, 404
 
 @app.put('/order', tags=[order_tag],
-          responses={"200": OrderViewSchema, "409": ErrorSchema, "400": ErrorSchema})
+          responses={"200": OrderUpdateViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def update_order(form: OrderUpdateSchema):
     """Update one order in the db
 
@@ -160,8 +160,9 @@ def update_order(form: OrderUpdateSchema):
                 Order.value: Order.price * form.quantity
             }
         )
-        session.commit()
         logger.debug(f"Atualizando pedido de id: '{order_id}'")
+        session.commit()
+        order = session.query(Order).filter(Order.id == order_id)
         return show_order_update(order), 200
     
     except IntegrityError as e:

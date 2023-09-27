@@ -88,3 +88,10 @@ def show_order_update(order: Order):
 class OrderUpdateSchema(BaseModel):
     id: int
     quantity: int
+
+class OrderUpdateViewSchema(BaseModel):
+    """ Define como um pedido será retornado ao ser atualizado
+    """
+    id: int = 1
+    quantity: int = 12
+    value: float = 12.50
